@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinNLP 2026 — The 11th Workshop on Financial Technology and Natural Language Processing</title>
+<meta name="description" content="The 11th Workshop on Financial Technology and Natural Language Processing (FinNLP-2026), co-located with EMNLP 2026 in Budapest, Hungary." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a14;
+    --bg-2: #11111d;
+    --grid: rgba(200, 180, 255, 0.05);
+    --pink: #e878c8;
+    --pink-soft: #d99ad0;
+    --cyan: #7adde0;
+    --cyan-soft: #a8e8eb;
+    --purple: #6b5b95;
+    --text: #e4e2f0;
+    --text-dim: #9a98b3;
+    --text-faint: #5e5c78;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  #bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.7;
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(232, 120, 200, 0.07) 0%, transparent 50%),
+      radial-gradient(circle at 85% 70%, rgba(122, 221, 224, 0.05) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  main, nav, footer { position: relative; z-index: 2; }
+
+  /* ---------- NAV ---------- */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10, 10, 20, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(232, 120, 200, 0.12);
+  }
+  .nav-inner {
+    max-width: 1180px; margin: 0 auto; padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; font-size: 1.05rem;
+    color: var(--text); text-decoration: none;
+    letter-spacing: 0.1em;
+  }
+  .brand .b1 { color: var(--cyan); }
+  .brand .b2 { color: var(--pink); }
+  .nav-links a {
+    color: var(--text-dim); text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; font-size: 0.95rem;
+    margin-left: 28px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-links a.cta {
+    color: var(--pink);
+    border: 1px solid rgba(232, 120, 200, 0.5);
+    padding: 7px 16px;
+    border-radius: 3px;
+  }
+  .nav-links a.cta:hover {
+    background: rgba(232, 120, 200, 0.12);
+    border-color: var(--pink);
+    color: var(--pink);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    max-width: 1180px; margin: 0 auto;
+    padding: 120px 32px 100px;
+    position: relative;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 0.15em;
+    color: var(--cyan);
+    margin-bottom: 36px;
+    text-transform: uppercase;
+  }
+  .eyebrow::before, .eyebrow::after {
+    content: ""; display: inline-block;
+    width: 32px; height: 1px;
+    background: rgba(122, 221, 224, 0.45);
+  }
+  .hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5.2vw, 4.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 36px;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .hero h1 .neon-pink {
+    color: var(--pink);
+    text-shadow: 0 0 18px rgba(232, 120, 200, 0.25);
+  }
+  .hero h1 .neon-cyan {
+    color: var(--cyan);
+    text-shadow: 0 0 18px rgba(122, 221, 224, 0.25);
+  }
+  .hero .lede {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    max-width: 680px;
+    margin: 0 0 48px;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid rgba(122, 221, 224, 0.15);
+    background: rgba(17, 17, 29, 0.5);
+  }
+  .meta-strip .item {
+    padding: 22px 24px;
+    border-right: 1px solid rgba(122, 221, 224, 0.1);
+  }
+  .meta-strip .item:last-child { border-right: none; }
+  .meta-strip .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .meta-strip .v {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    color: var(--cyan-soft);
+    font-weight: 500;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.block {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 100px 32px;
+    position: relative;
+  }
+  section.block + section.block {
+    border-top: 1px solid rgba(232, 120, 200, 0.08);
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 60px;
+    margin-bottom: 56px;
+    align-items: start;
+  }
+  .section-head .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    color: var(--pink);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding-top: 12px;
+    border-top: 1px solid rgba(232, 120, 200, 0.4);
+  }
+  .section-head h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1.18;
+    letter-spacing: -0.005em;
+    margin: 0;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .section-head h2 .accent {
+    color: var(--cyan);
+  }
+  .prose {
+    max-width: 780px;
+    margin-left: 280px;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .prose p { margin: 0 0 18px; }
+  .prose strong { color: var(--text); }
+  .prose a {
+    color: var(--cyan);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(122, 221, 224, 0.3);
+    transition: all 0.2s;
+  }
+  .prose a:hover { border-bottom-color: var(--cyan); }
+
+  /* ---------- CTA cards ---------- */
+  .cta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 64px;
+  }
+  .cta-card {
+    display: block;
+    background: rgba(17, 17, 29, 0.6);
+    border: 1px solid rgba(232, 120, 200, 0.3);
+    padding: 32px;
+    text-decoration: none;
+    color: var(--text);
+    position: relative;
+    transition: all 0.25s;
+    overflow: hidden;
+  }
+  .cta-card.cyan { border-color: rgba(122, 221, 224, 0.3); }
+  .cta-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--pink);
+    background: rgba(232, 120, 200, 0.04);
+  }
+  .cta-card.cyan:hover {
+    border-color: var(--cyan);
+    background: rgba(122, 221, 224, 0.04);
+  }
+  .cta-card .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--pink);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .cta-card.cyan .kicker { color: var(--cyan); }
+  .cta-card .title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .cta-card .desc {
+    color: var(--text-dim);
+    font-size: 0.98rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .cta-card .arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--pink);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .cta-card.cyan .arrow { color: var(--cyan); }
+  .cta-card .arrow::after { content: " →"; transition: margin-left 0.2s; }
+  .cta-card:hover .arrow::after { margin-left: 6px; }
+
+  /* ---------- Topics ---------- */
+  .topics {
+    margin-left: 280px;
+    max-width: 780px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .topic {
+    padding: 14px 18px 14px 0;
+    border-bottom: 1px solid rgba(232, 120, 200, 0.08);
+    color: var(--text);
+    font-size: 0.97rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: all 0.2s;
+  }
+  .topic:hover {
+    color: var(--cyan-soft);
+    padding-left: 6px;
+  }
+  .topic .num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--pink);
+    font-size: 0.74rem;
+    padding-top: 4px;
+    min-width: 28px;
+  }
+
+  /* ---------- Organizers ---------- */
+  .org-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-left: 280px;
+    max-width: 780px;
+  }
+  .org {
+    padding: 22px 22px 20px;
+    border: 1px solid rgba(232, 120, 200, 0.16);
+    background: rgba(17, 17, 29, 0.4);
+    transition: all 0.25s;
+    position: relative;
+  }
+  .org:nth-child(3n+2) {
+    border-color: rgba(122, 221, 224, 0.16);
+  }
+  .org:hover { border-color: var(--pink); }
+  .org:nth-child(3n+2):hover { border-color: var(--cyan); }
+  .org .name {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.98rem; font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.01em;
+    margin-bottom: 6px;
+  }
+  .org .aff {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  .org .country {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--pink);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 12px;
+  }
+  .org:nth-child(3n+2) .country { color: var(--cyan); }
+
+  /* ---------- Contact ---------- */
+  .contact-wrap {
+    margin-left: 280px;
+    max-width: 780px;
+  }
+  .contact-wrap a.email {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--cyan);
+    text-decoration: none;
+    border: 1px solid rgba(122, 221, 224, 0.35);
+    padding: 14px 22px;
+    margin-top: 8px;
+    transition: all 0.2s;
+  }
+  .contact-wrap a.email:hover {
+    background: rgba(122, 221, 224, 0.06);
+    border-color: var(--cyan);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 60px 32px 50px;
+    border-top: 1px solid rgba(232, 120, 200, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    color: var(--text-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  footer a:hover { color: var(--cyan); }
+
+  @media (max-width: 768px) {
+    .nav-links a:not(.cta) { display: none; }
+    .section-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 36px; }
+    .prose, .topics, .org-grid, .contact-wrap { margin-left: 0; }
+    .topics, .org-grid { grid-template-columns: 1fr; }
+    .cta-row { grid-template-columns: 1fr; }
+    .meta-strip { grid-template-columns: 1fr 1fr; }
+    .meta-strip .item { border-bottom: 1px solid rgba(0, 240, 255, 0.15); }
+    .meta-strip .item:nth-child(2n) { border-right: none; }
+    .hero { padding: 60px 24px 60px; }
+    section.block { padding: 70px 24px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<nav class="top">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="b1">FIN</span><span class="b2">NLP</span> // 2026</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#topics">Topics</a>
+      <a href="#organizers">Organizers</a>
+      <a href="#contact">Contact</a>
+      <a href="call-for-papers.html" class="cta">Submit_</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">ACL SIG-FinTech // EMNLP 2026 // v11.0</div>
+  <h1>
+    The 11th Workshop on <span class="neon-pink">Financial Technology</span> &amp; <span class="neon-cyan">Natural Language Processing</span>.
+  </h1>
+  <p class="lede">Where neural networks meet capital markets. Bridging NLP, machine learning, and LLMs with finance, economics, and law — since 2019.</p>
+
+  <div class="meta-strip">
+    <div class="item">
+      <div class="k">// Date</div>
+      <div class="v">Oct 24–29, 2026</div>
+    </div>
+    <div class="item">
+      <div class="k">// Location</div>
+      <div class="v">Budapest, Hungary</div>
+    </div>
+    <div class="item">
+      <div class="k">// Co-located</div>
+      <div class="v">EMNLP 2026</div>
+    </div>
+    <div class="item">
+      <div class="k">// Archive</div>
+      <div class="v">ACL Anthology</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="about">
+  <div class="section-head">
+    <div class="label">[ 01 ] // ABOUT</div>
+    <h2>Interdisciplinary venue<br/>for <span class="accent">financial AI</span>.</h2>
+  </div>
+  <div class="prose">
+    <p>The FinNLP workshop explores the intersection of <strong>Natural Language Processing, Machine Learning, and Large Language Models</strong> within the financial, economics, and legal domains. The goal is to foster interdisciplinary research and innovation, addressing the multifaceted challenges inherent in these fields.</p>
+    <p>Since its inception in 2019, FinNLP has been the annual workshop of the ACL Special Interest Group on Financial and Economic NLP (SIG-FinTech). By co-locating with EMNLP, IJCAI, IJCNLP-AACL, LREC, and COLING, FinNLP has bridged the AI and NLP research communities. All proceedings are openly archived in the <a href="https://aclanthology.org/venues/finnlp/" target="_blank" rel="noopener">ACL Anthology</a>.</p>
+    <p>FinNLP 2026 is the <strong>11th edition</strong> of the workshop, co-located with <strong>EMNLP 2026</strong> in Budapest, Hungary.</p>
+  </div>
+
+  <div class="cta-row">
+    <a href="call-for-papers.html" class="cta-card">
+      <div class="kicker">// For Researchers</div>
+      <div class="title">Call for Papers</div>
+      <div class="desc">Submit long or short papers on financial NLP, LLMs, and applied AI in finance. Published in the ACL Anthology.</div>
+      <div class="arrow">Enter</div>
+    </a>
+    <a href="call-for-challenges.html" class="cta-card cyan">
+      <div class="kicker">// For Practitioners</div>
+      <div class="title">Call for Challenges</div>
+      <div class="desc">Join the shared task tracks — benchmarks, datasets, and reproducible baselines for financial AI.</div>
+      <div class="arrow">Enter</div>
+    </a>
+  </div>
+</section>
+
+<section class="block" id="topics">
+  <div class="section-head">
+    <div class="label">[ 02 ] // TOPICS</div>
+    <h2>Where documents<br/>meet <span class="accent">language models</span>.</h2>
+  </div>
+  <div class="topics">
+    <div class="topic"><span class="num">/01</span>Language modeling on financial corpora</div>
+    <div class="topic"><span class="num">/02</span>Graph representation learning on financial data</div>
+    <div class="topic"><span class="num">/03</span>Financial search and question answering</div>
+    <div class="topic"><span class="num">/04</span>Event discovery on equity price</div>
+    <div class="topic"><span class="num">/05</span>ESG event discovery &amp; impact</div>
+    <div class="topic"><span class="num">/06</span>Compliance monitoring &amp; auditing</div>
+    <div class="topic"><span class="num">/07</span>LLMs in finance and law</div>
+    <div class="topic"><span class="num">/08</span>Ethics, bias, privacy, data protection</div>
+    <div class="topic"><span class="num">/09</span>Responsible AI &amp; governance</div>
+  </div>
+</section>
+
+<section class="block" id="organizers">
+  <div class="section-head">
+    <div class="label">[ 03 ] // ORGANIZERS</div>
+    <h2>General<br/><span class="accent">chairs</span>.</h2>
+  </div>
+  <div class="org-grid">
+    <div class="org">
+      <div class="name">Chung-Chi Chen</div>
+      <div class="aff">National Institute of Informatics (NII)</div>
+      <div class="country">// Japan</div>
+    </div>
+    <div class="org">
+      <div class="name">Yongjae Lee</div>
+      <div class="aff">UNIST</div>
+      <div class="country">// South Korea</div>
+    </div>
+    <div class="org">
+      <div class="name">Jimin Huang</div>
+      <div class="aff">The FinAI</div>
+      <div class="country">// United States</div>
+    </div>
+    <div class="org">
+      <div class="name">Sophia Ananiadou</div>
+      <div class="aff">University of Manchester</div>
+      <div class="country">// United Kingdom</div>
+    </div>
+    <div class="org">
+      <div class="name">Hsin-Hsi Chen</div>
+      <div class="aff">National Taiwan University</div>
+      <div class="country">// Taiwan</div>
+    </div>
+    <div class="org">
+      <div class="name">Hiroya Takamura</div>
+      <div class="aff">AIST</div>
+      <div class="country">// Japan</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="section-head">
+    <div class="label">[ 04 ] // CONTACT</div>
+    <h2>Get in<br/><span class="accent">touch</span>.</h2>
+  </div>
+  <div class="contact-wrap">
+    <p style="color: var(--text-dim); margin: 0 0 4px;">For inquiries about the workshop, submissions, or shared tasks:</p>
+    <a class="email" href="mailto:aclsigfintech@gmail.com">aclsigfintech@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div>&copy; FinNLP_2026 // ACL SIG-FinTech</div>
+  <div>
+    <a href="call-for-papers.html">Papers</a> //
+    <a href="call-for-challenges.html">Challenges</a> //
+    <a href="https://aclanthology.org/venues/finnlp/" target="_blank" rel="noopener">Anthology</a>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let cx, cy;
+  const stars = [];
+  const NUM = 300;
+  const SPEED = 0.028;
+  const PINK = [232, 120, 200];
+  const CYAN = [122, 221, 224];
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = window.innerWidth / 2;
+    cy = window.innerHeight / 2;
+  }
+
+  function spawn(initial) {
+    return {
+      x: (Math.random() - 0.5) * 2,
+      y: (Math.random() - 0.5) * 2,
+      z: initial ? Math.random() : 1,
+      c: Math.random() < 0.5 ? PINK : CYAN,
+      pz: 0
+    };
+  }
+
+  function init() {
+    stars.length = 0;
+    for (let i = 0; i < NUM; i++) stars.push(spawn(true));
+  }
+
+  function draw() {
+    ctx.fillStyle = 'rgba(10, 10, 20, 0.18)';
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    const maxDim = Math.max(window.innerWidth, window.innerHeight);
+    ctx.lineCap = 'round';
+
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i];
+      s.pz = s.z;
+      s.z -= SPEED;
+      if (s.z <= 0.02) { stars[i] = spawn(false); continue; }
+      const k = 1 / s.z;
+      const px = cx + s.x * k * (maxDim * 0.55);
+      const py = cy + s.y * k * (maxDim * 0.55);
+      const pk = 1 / s.pz;
+      const ppx = cx + s.x * pk * (maxDim * 0.55);
+      const ppy = cy + s.y * pk * (maxDim * 0.55);
+      if (px < -80 || px > window.innerWidth + 80 || py < -80 || py > window.innerHeight + 80) continue;
+      const closeness = 1 - s.z;
+      const alpha = Math.min(1, closeness * 1.3);
+      const size = Math.max(0.4, closeness * closeness * 3.2);
+      const [r, g, b] = s.c;
+      ctx.strokeStyle = `rgba(${r},${g},${b},${alpha * 0.85})`;
+      ctx.lineWidth = size;
+      ctx.beginPath();
+      ctx.moveTo(ppx, ppy);
+      ctx.lineTo(px, py);
+      ctx.stroke();
+      ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+      ctx.beginPath();
+      ctx.arc(px, py, size * 0.9, 0, Math.PI * 2);
+      ctx.fill();
+      if (closeness > 0.6) {
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha * 0.25})`;
+        ctx.beginPath();
+        ctx.arc(px, py, size * 2.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize(); init(); draw();
+})();
+</script>
+</body>
+</html>
