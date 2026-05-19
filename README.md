@@ -2,8 +2,6 @@
 
 Website for **The 11th Workshop on Financial Technology and Natural Language Processing** (FinNLP-2026), co-located with **EMNLP 2026** in Budapest, Hungary (October 24–29, 2026).
 
-Static site — no build step required.
-
 ## Structure
 
 ```
