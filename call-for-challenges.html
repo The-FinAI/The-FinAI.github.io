@@ -3,218 +3,190 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Call for Challenges // FinNLP 2026</title>
-<meta name="description" content="Call for Challenges — Shared tasks at the 11th Workshop on Financial Technology and Natural Language Processing (FinNLP-2026)." />
+<title>Call for Challenges · FinNLP 2026</title>
+<meta name="description" content="Call for Challenges — FinEval shared tasks at the 11th Workshop on Financial Technology and Natural Language Processing (FinNLP-2026)." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a14;
-    --bg-2: #11111d;
-    --grid: rgba(200, 180, 255, 0.05);
-    --pink: #e878c8;
-    --cyan: #7adde0;
-    --cyan-soft: #a8e8eb;
-    --text: #e4e2f0;
-    --text-dim: #9a98b3;
-    --text-faint: #5e5c78;
+    --bg: #ffffff;
+    --bg-soft: #fafafa;
+    --text: #1a1f2e;
+    --text-dim: #525a6b;
+    --text-faint: #8a90a0;
+    --border: #e6e8ee;
+    --border-soft: #eef0f4;
+    --accent: #1d4ed8;
+    --accent-soft: #e8efff;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--bg); color: var(--text);
-    line-height: 1.65;
+    line-height: 1.65; font-size: 16px;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden; min-height: 100vh;
   }
-  #bg-canvas {
-    position: fixed; inset: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; z-index: 0;
-    opacity: 0.7;
-  }
-  body::after {
-    content: ""; position: fixed; inset: 0;
-    background:
-      radial-gradient(circle at 80% 10%, rgba(122, 221, 224, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 15% 80%, rgba(232, 120, 200, 0.06) 0%, transparent 55%);
-    pointer-events: none; z-index: 0;
-  }
-  main, nav, footer, section { position: relative; z-index: 2; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
   nav.top {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(10, 10, 20, 0.78);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(122, 221, 224, 0.12);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--border);
   }
   .nav-inner {
-    max-width: 1180px; margin: 0 auto; padding: 18px 32px;
+    max-width: 920px; margin: 0 auto; padding: 14px 28px;
     display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
   }
-  .brand {
-    font-family: 'Inter', sans-serif; font-weight: 700;
-    font-size: 1.1rem; color: var(--text);
-    text-decoration: none; letter-spacing: 0.1em;
-  }
-  .brand .b1 { color: var(--cyan); }
-  .brand .b2 { color: var(--pink); }
-  .nav-links a {
-    color: var(--text-dim); text-decoration: none;
-    font-weight: 500; font-size: 0.95rem; margin-left: 28px;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    transition: all 0.25s;
-  }
-  .nav-links a:hover { color: var(--pink); }
-  .nav-links a.active { color: var(--cyan); }
+  .brand { font-weight: 700; font-size: 0.95rem; color: var(--text); letter-spacing: 0.02em; }
+  .brand .accent-text { color: var(--accent); }
+  .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-dim); font-weight: 500; font-size: 0.9rem; }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+  .nav-links a.active { color: var(--accent); }
 
-  .page-head {
-    max-width: 1180px; margin: 0 auto;
-    padding: 100px 32px 60px;
+  header.page-head {
+    max-width: 920px; margin: 0 auto;
+    padding: 60px 28px 36px;
+    border-bottom: 1px solid var(--border-soft);
   }
   .eyebrow {
-    display: inline-flex; align-items: center; gap: 12px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem; letter-spacing: 0.15em;
-    color: var(--cyan);
-    margin-bottom: 32px; text-transform: uppercase;
+    font-size: 0.78rem; color: var(--accent);
+    letter-spacing: 0.06em; margin-bottom: 14px; font-weight: 500;
   }
-  .eyebrow::before, .eyebrow::after {
-    content: ""; width: 32px; height: 1px;
-    background: rgba(122, 221, 224, 0.45);
-  }
-  .page-head h1 {
+  header.page-head h1 {
     font-family: 'Inter', sans-serif; font-weight: 700;
-    font-size: clamp(2rem, 4.8vw, 3.6rem);
-    line-height: 1.08; letter-spacing: -0.01em;
-    margin: 0 0 28px; text-transform: uppercase;
+    font-size: clamp(1.7rem, 3.6vw, 2.2rem);
+    line-height: 1.2; letter-spacing: -0.01em;
+    margin: 0 0 14px;
   }
-  .page-head h1 .neon-cyan {
-    color: var(--cyan);
-    text-shadow: 0 0 18px rgba(122, 221, 224, 0.25);
+  header.page-head .sub {
+    color: var(--text-dim); font-size: 1rem; margin: 0;
   }
-  .page-head .lede {
-    font-size: 1.15rem; color: var(--text-dim);
-    max-width: 680px; margin: 0;
-  }
+  header.page-head .sub strong { color: var(--text); font-weight: 600; }
 
+  main { max-width: 920px; margin: 0 auto; padding: 0 28px; }
   section.block {
-    max-width: 1180px; margin: 0 auto;
-    padding: 80px 32px;
-    border-top: 1px solid rgba(122, 221, 224, 0.08);
+    padding: 44px 0;
+    border-bottom: 1px solid var(--border-soft);
   }
-  .section-head {
-    display: grid; grid-template-columns: 220px 1fr;
-    gap: 60px; margin-bottom: 48px; align-items: start;
+  section.block:last-of-type { border-bottom: none; }
+  section.block > h2 {
+    font-family: 'Inter', sans-serif; font-weight: 700;
+    font-size: 1.3rem; color: var(--text);
+    margin: 0 0 20px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--text);
+    display: inline-block;
   }
-  .section-head .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.74rem; color: var(--cyan);
-    letter-spacing: 0.12em; text-transform: uppercase;
-    padding-top: 12px; border-top: 1px solid rgba(122, 221, 224, 0.4);
+  section.block p {
+    margin: 0 0 14px; color: var(--text); line-height: 1.72;
   }
-  .section-head h2 {
-    font-family: 'Inter', sans-serif; font-weight: 600;
-    font-size: clamp(1.5rem, 2.8vw, 2rem); line-height: 1.18;
-    margin: 0; text-transform: uppercase;
-  }
-  .section-head h2 .accent { color: var(--pink); }
+  section.block p.lead { color: var(--text-dim); }
 
-  .prose {
-    max-width: 780px; margin-left: 280px;
-    color: var(--text-dim); font-size: 1.02rem; line-height: 1.75;
-  }
-  .prose p { margin: 0 0 18px; }
-  .prose strong { color: var(--text); }
-  .prose a {
-    color: var(--cyan); text-decoration: none;
-    border-bottom: 1px solid rgba(122, 221, 224, 0.3);
-  }
-  .prose a:hover { border-bottom-color: var(--cyan); }
-  .prose h3 {
+  h3.sub {
     font-family: 'Inter', sans-serif; font-weight: 600;
-    color: var(--text); font-size: 1rem;
-    margin: 32px 0 12px; text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 1.02rem; color: var(--text);
+    margin: 26px 0 10px;
   }
-  .prose h3::before { content: "▸ "; color: var(--cyan); }
-  .prose ul { padding-left: 0; margin: 0 0 18px; list-style: none; }
-  .prose li { padding: 6px 0 6px 24px; position: relative; }
-  .prose li::before {
-    content: "//"; position: absolute; left: 0;
-    color: var(--cyan); font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
+  h3.sub::before {
+    content: "// "; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400; font-size: 0.88rem;
   }
 
-  .dates-list { margin-left: 280px; max-width: 780px; }
-  .date-row {
-    display: grid; grid-template-columns: 1fr auto;
-    align-items: baseline; gap: 32px;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(122, 221, 224, 0.08);
-    transition: all 0.2s;
+  ul.policy-list { list-style: none; padding: 0; margin: 10px 0 0; }
+  ul.policy-list li {
+    padding: 8px 0 8px 22px; position: relative;
+    color: var(--text); font-size: 0.95rem; line-height: 1.6;
   }
-  .date-row:hover {
-    border-color: rgba(232, 120, 200, 0.4);
-    padding-left: 6px;
+  ul.policy-list li::before {
+    content: "—"; position: absolute; left: 0; top: 8px; color: var(--text-faint);
   }
-  .date-row .what {
-    font-family: 'Inter', sans-serif; font-weight: 500;
-    color: var(--text); font-size: 0.98rem;
-    text-transform: uppercase; letter-spacing: 0.03em;
+
+  ul.prev-tasks {
+    list-style: none; padding: 0; margin: 12px 0 0;
+    display: grid; grid-template-columns: 1fr; gap: 4px;
+    font-size: 0.92rem;
   }
-  .date-row .when {
-    color: var(--pink);
+  ul.prev-tasks li {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border-soft);
+    display: grid; grid-template-columns: 1fr auto; gap: 12px;
+    align-items: baseline;
+  }
+  ul.prev-tasks li:hover { background: var(--bg-soft); }
+  ul.prev-tasks .task-name { color: var(--text); font-weight: 500; }
+  ul.prev-tasks .task-venue {
+    color: var(--text-dim);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.86rem;
+    font-size: 0.82rem;
+  }
+
+  .dates-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 8px; font-size: 0.95rem;
+  }
+  .dates-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .dates-table td:first-child {
+    color: var(--text); font-weight: 500; width: 60%;
+  }
+  .dates-table td:last-child {
+    color: var(--text-dim); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem; text-align: right;
+  }
+  .dates-table tr.highlight td:last-child {
+    color: var(--accent); font-weight: 500;
+  }
+  .tz-note {
+    margin-top: 10px; font-size: 0.82rem;
+    color: var(--text-faint); font-family: 'JetBrains Mono', monospace;
   }
 
   .callout {
-    margin-left: 280px; max-width: 780px;
-    border: 1px solid rgba(232, 120, 200, 0.35);
-    background: rgba(232, 120, 200, 0.04);
-    padding: 22px 26px; margin-top: 28px;
+    border: 1px solid var(--accent); background: var(--accent-soft);
+    padding: 16px 18px; border-radius: 6px;
+    margin-top: 20px;
   }
   .callout .lbl {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem; color: var(--pink);
-    letter-spacing: 0.12em; text-transform: uppercase;
-    margin-bottom: 8px;
+    font-size: 0.74rem; color: var(--accent);
+    margin-bottom: 4px; font-weight: 500;
   }
-  .callout p { margin: 0; color: var(--text); font-size: 0.95rem; }
+  .callout p { margin: 0; color: var(--text); font-size: 0.93rem; }
 
   footer {
-    max-width: 1180px; margin: 0 auto;
-    padding: 50px 32px 40px;
-    border-top: 1px solid rgba(122, 221, 224, 0.1);
+    max-width: 920px; margin: 0 auto;
+    padding: 32px 28px 48px;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem; color: var(--text-faint);
     display: flex; justify-content: space-between;
-    flex-wrap: wrap; gap: 16px;
-    color: var(--text-faint);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.82rem;
-    letter-spacing: 0.08em; text-transform: uppercase;
+    flex-wrap: wrap; gap: 12px;
   }
-  footer a { color: var(--text-dim); text-decoration: none; }
-  footer a:hover { color: var(--pink); }
+  footer a { color: var(--text-dim); }
 
-  @media (max-width: 768px) {
-    .nav-links a:not(.active) { display: none; }
-    .section-head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }
-    .prose, .dates-list, .callout { margin-left: 0; }
-    .page-head { padding: 60px 24px 30px; }
-    section.block { padding: 60px 24px; }
+  @media (max-width: 700px) {
+    header.page-head { padding: 40px 24px 28px; }
+    main { padding: 0 24px; }
+    section.block { padding: 32px 0; }
+    .dates-table td { padding: 10px 0; }
   }
 </style>
 </head>
 <body>
-<canvas id="bg-canvas"></canvas>
 
 <nav class="top">
   <div class="nav-inner">
-    <a href="index.html" class="brand"><span class="b1">FIN</span><span class="b2">NLP</span> // 2026</a>
+    <a href="index.html" class="brand">FinNLP <span class="accent-text">2026</span></a>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="call-for-papers.html">Papers</a>
@@ -224,151 +196,97 @@
 </nav>
 
 <header class="page-head">
-  <div class="eyebrow">// For Practitioners // EMNLP 2026 · Budapest</div>
-  <h1>Call for <span class="neon-cyan">Challenges</span>_</h1>
-  <p class="lede">Join the FinNLP 2026 shared tasks. Open datasets, reproducible baselines, and a community that builds in public.</p>
+  <div class="eyebrow">// FinEval Shared Tasks · v11.0</div>
+  <h1>Call for Challenges — FinEval</h1>
+  <p class="sub"><strong>FinNLP-2026 @ EMNLP-2026</strong> · October 24–29, 2026 · Budapest, Hungary</p>
 </header>
 
+<main>
+
 <section class="block">
-  <div class="section-head">
-    <div class="label">[ 01 ] // OVERVIEW</div>
-    <h2>Shared tasks at<span class="accent">FinNLP 2026</span>.</h2>
-  </div>
-  <div class="prose">
-    <p>The FinNLP shared-task series has been a cornerstone of the workshop since 2019, bringing together academic and industry participants around concrete, reproducible problems in financial AI.</p>
-    <p>For 2026, the program covers research problems across <strong>language models, retrieval, reasoning, multi-modal understanding, and agents</strong> applied to finance, economics, and law. Final track details will be announced on this page.</p>
-    <div class="callout">
-      <div class="lbl">// Open by default</div>
-      <p>Tracks ship with open-source starter kits, public datasets, and reproducible baselines.</p>
-    </div>
+  <h2>About FinEval</h2>
+  <p>Shared tasks are collaborative initiatives where researchers and practitioners work together to address a common challenge using shared datasets and evaluation metrics. <strong>FinEval</strong> — Financial Information Access and Evaluation — aims to foster competition while providing a community venue, with new editions called annually alongside the FinNLP workshop.</p>
+  <p>We have several interesting shared tasks in the collocated event, FinEval. The 2026 task list will be announced on this page; see the official <a href="https://sigfintech.github.io/fineval.html" target="_blank" rel="noopener">FinEval page</a> for the full archive and rolling proposals.</p>
+</section>
+
+<section class="block">
+  <h2>Important Dates</h2>
+  <table class="dates-table">
+    <tbody>
+      <tr><td>Task Announcements</td><td>TBD</td></tr>
+      <tr><td>Registration Opens</td><td>TBD</td></tr>
+      <tr><td>Training Data Release</td><td>TBD</td></tr>
+      <tr><td>Test Phase / Final Submission</td><td>TBD</td></tr>
+      <tr><td>System Paper Deadline</td><td>TBD</td></tr>
+      <tr><td>Notification</td><td>TBD</td></tr>
+      <tr class="highlight"><td>Workshop &amp; Awards @ EMNLP</td><td>October 24–29, 2026</td></tr>
+    </tbody>
+  </table>
+  <p class="tz-note">// All deadlines are Anywhere on Earth (AoE)</p>
+</section>
+
+<section class="block">
+  <h2>How to Participate</h2>
+
+  <h3 class="sub">For Participants</h3>
+  <ul class="policy-list">
+    <li>Register your team via the official challenge platform (TBA).</li>
+    <li>Access training data, starter kits, and baselines on GitHub.</li>
+    <li>Submit predictions on the public leaderboard during the evaluation phase.</li>
+    <li>Submit a system description paper (up to 4 pages of content, plus unlimited references and appendix, using the ACL Template) — published in the <a href="https://aclanthology.org/venues/finnlp/" target="_blank" rel="noopener">ACL Anthology</a>.</li>
+    <li>Present at FinNLP 2026 (oral / poster).</li>
+  </ul>
+
+  <h3 class="sub">For Task Proposers</h3>
+  <p>FinEval welcomes proposals for new shared tasks on a rolling basis. A strong proposal includes:</p>
+  <ul class="policy-list">
+    <li>A clear problem definition addressing an open challenge in FinNLP / FinAI.</li>
+    <li>A high-quality, openly accessible dataset (or a concrete plan to construct one).</li>
+    <li>Well-defined evaluation metrics and reproducible baselines.</li>
+    <li>A realistic timeline and committed organizing team (minimum of two organizers).</li>
+  </ul>
+  <p>Roles typically include: <strong>Lead Organizer</strong> (oversees the task and deliverables), <strong>Co-Organizers</strong> (data preparation, evaluation, communication), and <strong>Advisory Organizers</strong> (guidance without daily involvement).</p>
+
+  <div class="callout">
+    <div class="lbl">// Submit a proposal</div>
+    <p>Send proposals to <a href="mailto:aclsigfintech@gmail.com">aclsigfintech@gmail.com</a>. Proposals are reviewed on a rolling basis.</p>
   </div>
 </section>
 
 <section class="block">
-  <div class="section-head">
-    <div class="label">[ 02 ] // PARTICIPATE</div>
-    <h2>How to<span class="accent">take part</span>.</h2>
-  </div>
-  <div class="prose">
-    <h3>For participants</h3>
-    <ul>
-      <li>Register your team via the official challenge platform (TBA)</li>
-      <li>Access training data, starter kits, and baselines on GitHub</li>
-      <li>Submit predictions on the public leaderboard during evaluation</li>
-      <li>Write a 4-page system description paper — published in the ACL Anthology</li>
-      <li>Present at FinNLP 2026 (oral / poster)</li>
-    </ul>
-
-    <h3>For task proposers</h3>
-    <p>We welcome proposals for new shared tasks. A strong proposal includes:</p>
-    <ul>
-      <li>A clear problem definition addressing an open challenge in FinNLP / FinAI</li>
-      <li>A high-quality, openly accessible dataset (or plan to construct one)</li>
-      <li>Well-defined evaluation metrics and reproducible baselines</li>
-      <li>A realistic timeline and committed organizing team</li>
-    </ul>
-    <p>Proposals can be sent to <a href="mailto:aclsigfintech@gmail.com">aclsigfintech@gmail.com</a>.</p>
-  </div>
+  <h2>Previous FinEval Tasks</h2>
+  <ul class="prev-tasks">
+    <li><span class="task-name">Earnings2Insights</span><span class="task-venue">EMNLP-2025</span></li>
+    <li><span class="task-name">FinEval-Pilot (5 tasks)</span><span class="task-venue">COLING-2025</span></li>
+    <li><span class="task-name">Financial Challenges in Large Language Models</span><span class="task-venue">IJCAI-2024</span></li>
+    <li><span class="task-name">Multiple Question Generation from Presentation Transcripts</span><span class="task-venue">IJCAI-2024</span></li>
+    <li><span class="task-name">ML-ESG-3</span><span class="task-venue">LREC-COLING-2024</span></li>
+    <li><span class="task-name">ML-ESG-2</span><span class="task-venue">IJCNLP-AACL-2023</span></li>
+    <li><span class="task-name">Multi-Lingual ESG Issue Identification</span><span class="task-venue">IJCAI-2023</span></li>
+    <li><span class="task-name">ERAI</span><span class="task-venue">EMNLP-2022</span></li>
+    <li><span class="task-name">FinSim-4</span><span class="task-venue">IJCAI-ECAI-2022</span></li>
+    <li><span class="task-name">FinSim-3</span><span class="task-venue">IJCAI-2021</span></li>
+    <li><span class="task-name">FinSBD-2</span><span class="task-venue">IJCAI-2020</span></li>
+    <li><span class="task-name">FinSim</span><span class="task-venue">IJCAI-2020</span></li>
+    <li><span class="task-name">FinSBD</span><span class="task-venue">IJCAI-2019</span></li>
+  </ul>
 </section>
 
 <section class="block">
-  <div class="section-head">
-    <div class="label">[ 03 ] // TIMELINE</div>
-    <h2>Important<span class="accent">dates</span>.</h2>
-  </div>
-  <div class="dates-list">
-    <div class="date-row"><div class="what">Registration opens</div><div class="when">[ TBA ]</div></div>
-    <div class="date-row"><div class="what">Training data release</div><div class="when">[ TBA ]</div></div>
-    <div class="date-row"><div class="what">Test phase · final submission</div><div class="when">[ TBA ]</div></div>
-    <div class="date-row"><div class="what">System paper deadline</div><div class="when">[ TBA ]</div></div>
-    <div class="date-row"><div class="what">Notification</div><div class="when">[ TBA ]</div></div>
-    <div class="date-row"><div class="what">Workshop &amp; awards</div><div class="when">[ EMNLP 2026 · Oct 24–29, 2026 ]</div></div>
-  </div>
-  <p style="margin-left: 280px; max-width: 780px; margin-top: 18px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;">// All deadlines are Anywhere on Earth (AoE)</p>
+  <h2>Contact</h2>
+  <p>For questions about FinEval shared tasks, contact <a href="mailto:aclsigfintech@gmail.com">aclsigfintech@gmail.com</a>.</p>
 </section>
+
+</main>
 
 <footer>
-  <div><a href="index.html">← Return_to_Home</a></div>
-  <div>FinNLP_2026 // ACL SIG-FinTech</div>
+  <div>© ACL SIG-FinTech · FinNLP 2026</div>
+  <div>
+    <a href="index.html">Home</a> ·
+    <a href="call-for-papers.html">Papers</a> ·
+    <a href="https://sigfintech.github.io/fineval.html" target="_blank" rel="noopener">FinEval (Official)</a>
+  </div>
 </footer>
 
-<script>
-(function() {
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let cx, cy;
-  const stars = [];
-  const NUM = 300;
-  const SPEED = 0.028;
-  const PINK = [232, 120, 200];
-  const CYAN = [122, 221, 224];
-
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = window.innerWidth + 'px';
-    canvas.style.height = window.innerHeight + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    cx = window.innerWidth / 2;
-    cy = window.innerHeight / 2;
-  }
-  function spawn(initial) {
-    return {
-      x: (Math.random() - 0.5) * 2,
-      y: (Math.random() - 0.5) * 2,
-      z: initial ? Math.random() : 1,
-      c: Math.random() < 0.65 ? CYAN : PINK,
-      pz: 0
-    };
-  }
-  function init() {
-    stars.length = 0;
-    for (let i = 0; i < NUM; i++) stars.push(spawn(true));
-  }
-  function draw() {
-    ctx.fillStyle = 'rgba(10, 10, 20, 0.18)';
-    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-    const maxDim = Math.max(window.innerWidth, window.innerHeight);
-    ctx.lineCap = 'round';
-    for (let i = 0; i < stars.length; i++) {
-      const s = stars[i];
-      s.pz = s.z;
-      s.z -= SPEED;
-      if (s.z <= 0.02) { stars[i] = spawn(false); continue; }
-      const k = 1 / s.z;
-      const px = cx + s.x * k * (maxDim * 0.55);
-      const py = cy + s.y * k * (maxDim * 0.55);
-      const pk = 1 / s.pz;
-      const ppx = cx + s.x * pk * (maxDim * 0.55);
-      const ppy = cy + s.y * pk * (maxDim * 0.55);
-      if (px < -80 || px > window.innerWidth + 80 || py < -80 || py > window.innerHeight + 80) continue;
-      const closeness = 1 - s.z;
-      const alpha = Math.min(1, closeness * 1.3);
-      const size = Math.max(0.4, closeness * closeness * 3.2);
-      const [r, g, b] = s.c;
-      ctx.strokeStyle = `rgba(${r},${g},${b},${alpha * 0.85})`;
-      ctx.lineWidth = size;
-      ctx.beginPath();
-      ctx.moveTo(ppx, ppy);
-      ctx.lineTo(px, py);
-      ctx.stroke();
-      ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
-      ctx.beginPath();
-      ctx.arc(px, py, size * 0.9, 0, Math.PI * 2);
-      ctx.fill();
-      if (closeness > 0.6) {
-        ctx.fillStyle = `rgba(${r},${g},${b},${alpha * 0.25})`;
-        ctx.beginPath();
-        ctx.arc(px, py, size * 2.4, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize', resize);
-  resize(); init(); draw();
-})();
-</script>
 </body>
 </html>
