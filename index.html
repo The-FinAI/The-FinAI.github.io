@@ -221,7 +221,7 @@
     gap: 12px;
     margin-top: 12px;
   }
-  .org {
+  a.org {
     padding: 14px 16px;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -229,14 +229,19 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    transition: border-color 0.18s, background 0.18s, transform 0.18s;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    transition: border-color 0.18s, background 0.18s, transform 0.18s, box-shadow 0.18s;
   }
-  .org:hover {
+  a.org:hover {
     border-color: var(--accent);
     background: var(--accent-soft);
     transform: translateY(-1px);
+    box-shadow: 0 4px 16px -8px rgba(29, 78, 216, 0.25);
+    text-decoration: none;
   }
-  .org .avatar {
+  a.org .avatar {
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -247,17 +252,31 @@
     border: 1px solid var(--border);
     transition: border-color 0.18s;
   }
-  .org:hover .avatar { border-color: var(--accent); }
-  .org .info { min-width: 0; flex: 1; }
-  .org .name {
+  a.org:hover .avatar { border-color: var(--accent); }
+  a.org .info { min-width: 0; flex: 1; }
+  a.org .name {
     font-weight: 600; color: var(--text);
     font-size: 0.98rem;
     margin-bottom: 2px;
   }
-  .org .aff {
+  a.org .aff {
     color: var(--text-dim);
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     line-height: 1.4;
+  }
+  a.org .aff + .aff { color: var(--text-faint); font-size: 0.82rem; margin-top: 1px; }
+  a.org .ext {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 14px; height: 14px;
+    color: var(--text-faint);
+    opacity: 0;
+    transition: opacity 0.18s, color 0.18s, transform 0.18s;
+  }
+  a.org:hover .ext {
+    opacity: 1;
+    color: var(--accent);
+    transform: translate(2px, -2px);
   }
 
   /* ---------- PREVIOUS EDITIONS ---------- */
@@ -493,48 +512,55 @@
 
   <h3 class="sub">General Chairs</h3>
   <div class="org-grid">
-    <div class="org">
+    <a class="org" href="https://nlpfin.github.io/" target="_blank" rel="noopener">
       <img class="avatar" src="assets/organizers/chung-chi-chen.jpg" alt="Chung-Chi Chen" loading="lazy" width="56" height="56">
       <div class="info">
         <div class="name">Chung-Chi Chen</div>
         <div class="aff">National Institute of Informatics (NII), Japan</div>
       </div>
-    </div>
-    <div class="org">
+      <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
+    <a class="org" href="https://scholar.google.com/citations?user=dAMXPRcAAAAJ" target="_blank" rel="noopener">
       <img class="avatar" src="assets/organizers/yongjae-lee.jpg" alt="Yongjae Lee" loading="lazy" width="56" height="56">
       <div class="info">
         <div class="name">Yongjae Lee</div>
         <div class="aff">UNIST, South Korea</div>
       </div>
-    </div>
-    <div class="org">
+      <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
+    <a class="org" href="https://scholar.google.com/citations?user=SnQ_CycAAAAJ" target="_blank" rel="noopener">
       <img class="avatar" src="assets/organizers/jimin-huang.jpg" alt="Jimin Huang" loading="lazy" width="56" height="56">
       <div class="info">
         <div class="name">Jimin Huang</div>
+        <div class="aff">University of Manchester, UK</div>
         <div class="aff">The FinAI, US</div>
       </div>
-    </div>
-    <div class="org">
+      <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
+    <a class="org" href="https://www.nactem.ac.uk/profile.php?member=sananiadou" target="_blank" rel="noopener">
       <img class="avatar" src="assets/organizers/sophia-ananiadou.jpg" alt="Sophia Ananiadou" loading="lazy" width="56" height="56">
       <div class="info">
         <div class="name">Sophia Ananiadou</div>
         <div class="aff">University of Manchester, UK</div>
       </div>
-    </div>
-    <div class="org">
+      <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
+    <a class="org" href="https://www.csie.ntu.edu.tw/en/member/Faculty/Hsin-Hsi-Chen-52075551" target="_blank" rel="noopener">
       <img class="avatar" src="assets/organizers/hsin-hsi-chen.jpg" alt="Hsin-Hsi Chen" loading="lazy" width="56" height="56">
       <div class="info">
         <div class="name">Hsin-Hsi Chen</div>
         <div class="aff">National Taiwan University, Taiwan</div>
       </div>
-    </div>
-    <div class="org">
+      <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
+    <a class="org" href="https://sites.google.com/view/hjtakamura/home" target="_blank" rel="noopener">
       <img class="avatar" src="assets/organizers/hiroya-takamura.jpg" alt="Hiroya Takamura" loading="lazy" width="56" height="56">
       <div class="info">
         <div class="name">Hiroya Takamura</div>
         <div class="aff">AIST, Japan</div>
       </div>
-    </div>
+      <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
   </div>
 
   <h3 class="sub">Program Committee (Reviewers)</h3>
