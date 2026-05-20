@@ -224,11 +224,31 @@
   .org {
     padding: 14px 16px;
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
     background: var(--bg);
-    transition: border-color 0.15s, background 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: border-color 0.18s, background 0.18s, transform 0.18s;
   }
-  .org:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .org:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+  }
+  .org .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 22%;
+    flex-shrink: 0;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    transition: border-color 0.18s;
+  }
+  .org:hover .avatar { border-color: var(--accent); }
+  .org .info { min-width: 0; flex: 1; }
   .org .name {
     font-weight: 600; color: var(--text);
     font-size: 0.98rem;
@@ -237,6 +257,7 @@
   .org .aff {
     color: var(--text-dim);
     font-size: 0.88rem;
+    line-height: 1.4;
   }
 
   /* ---------- PREVIOUS EDITIONS ---------- */
@@ -473,28 +494,46 @@
   <h3 class="sub">General Chairs</h3>
   <div class="org-grid">
     <div class="org">
-      <div class="name">Chung-Chi Chen</div>
-      <div class="aff">National Institute of Informatics (NII), Japan</div>
+      <img class="avatar" src="assets/organizers/chung-chi-chen.jpg" alt="Chung-Chi Chen" loading="lazy" width="56" height="56">
+      <div class="info">
+        <div class="name">Chung-Chi Chen</div>
+        <div class="aff">National Institute of Informatics (NII), Japan</div>
+      </div>
     </div>
     <div class="org">
-      <div class="name">Yongjae Lee</div>
-      <div class="aff">UNIST, South Korea</div>
+      <img class="avatar" src="assets/organizers/yongjae-lee.jpg" alt="Yongjae Lee" loading="lazy" width="56" height="56">
+      <div class="info">
+        <div class="name">Yongjae Lee</div>
+        <div class="aff">UNIST, South Korea</div>
+      </div>
     </div>
     <div class="org">
-      <div class="name">Jimin Huang</div>
-      <div class="aff">The FinAI, US</div>
+      <img class="avatar" src="assets/organizers/jimin-huang.jpg" alt="Jimin Huang" loading="lazy" width="56" height="56">
+      <div class="info">
+        <div class="name">Jimin Huang</div>
+        <div class="aff">The FinAI, US</div>
+      </div>
     </div>
     <div class="org">
-      <div class="name">Sophia Ananiadou</div>
-      <div class="aff">University of Manchester, UK</div>
+      <img class="avatar" src="assets/organizers/sophia-ananiadou.jpg" alt="Sophia Ananiadou" loading="lazy" width="56" height="56">
+      <div class="info">
+        <div class="name">Sophia Ananiadou</div>
+        <div class="aff">University of Manchester, UK</div>
+      </div>
     </div>
     <div class="org">
-      <div class="name">Hsin-Hsi Chen</div>
-      <div class="aff">National Taiwan University, Taiwan</div>
+      <img class="avatar" src="assets/organizers/hsin-hsi-chen.jpg" alt="Hsin-Hsi Chen" loading="lazy" width="56" height="56">
+      <div class="info">
+        <div class="name">Hsin-Hsi Chen</div>
+        <div class="aff">National Taiwan University, Taiwan</div>
+      </div>
     </div>
     <div class="org">
-      <div class="name">Hiroya Takamura</div>
-      <div class="aff">AIST, Japan</div>
+      <img class="avatar" src="assets/organizers/hiroya-takamura.jpg" alt="Hiroya Takamura" loading="lazy" width="56" height="56">
+      <div class="info">
+        <div class="name">Hiroya Takamura</div>
+        <div class="aff">AIST, Japan</div>
+      </div>
     </div>
   </div>
 
