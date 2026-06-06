@@ -71,6 +71,31 @@
     color: var(--text-dim); font-size: 1rem; margin: 0;
   }
   header.page-head .sub strong { color: var(--text); font-weight: 600; }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 24px;
+    padding: 11px 22px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.94rem;
+    text-decoration: none;
+    transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+  }
+  .hero-cta:hover {
+    background: #1e40af;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px -6px rgba(29, 78, 216, 0.45);
+    text-decoration: none;
+  }
+  .hero-cta svg { width: 14px; height: 14px; }
+  .hero-cta-note {
+    margin: 10px 0 0;
+    color: var(--text-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+  }
 
   main { max-width: 920px; margin: 0 auto; padding: 0 28px; }
   section.block {
@@ -196,6 +221,11 @@
   <div class="eyebrow">// Call for Papers · v11.0</div>
   <h1>Call for Papers</h1>
   <p class="sub"><strong>FinNLP-2026 @ EMNLP-2026</strong> · October 24–29, 2026 · Budapest, Hungary</p>
+  <a class="hero-cta" href="https://openreview.net/group?id=EMNLP/2026/Workshop/FinNLP" target="_blank" rel="noopener">
+    Submit on OpenReview
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+  </a>
+  <p class="hero-cta-note">// Direct submission deadline: Aug 11, 2026 (AoE) · ARR commitment: Aug 27</p>
 </header>
 
 <main>
@@ -228,15 +258,41 @@
   <h2>Important Dates</h2>
   <table class="dates-table">
     <tbody>
-      <tr><td>Submission Deadline</td><td>August 25, 2026 (AoE)</td></tr>
-      <tr><td>Submission System</td><td>OpenReview</td></tr>
-      <tr><td>Paper Notification</td><td>September 11, 2026</td></tr>
-      <tr><td>Camera-Ready Deadline</td><td>October 8, 2026</td></tr>
-      <tr class="highlight"><td>FinNLP-2026 @ EMNLP</td><td>October 24–29, 2026</td></tr>
+      <tr><td>Submission system opens</td><td>July 1, 2026</td></tr>
+      <tr><td>Direct paper submission deadline</td><td>August 11, 2026</td></tr>
+      <tr><td>ARR commitment deadline</td><td>August 27, 2026</td></tr>
+      <tr><td>Author notification</td><td>September 8, 2026</td></tr>
+      <tr><td>Camera-ready deadline</td><td>September 22, 2026</td></tr>
+      <tr class="highlight"><td>FinNLP-2026 @ EMNLP (workshop day)</td><td>October 28 or 29, 2026</td></tr>
       <tr><td>Location</td><td>Budapest, Hungary</td></tr>
+      <tr><td>Submission system</td><td><a href="https://openreview.net/group?id=EMNLP/2026/Workshop/FinNLP" target="_blank" rel="noopener">OpenReview</a></td></tr>
     </tbody>
   </table>
-  <p class="tz-note">// Time zone: Anywhere On Earth (AOE)</p>
+  <p class="tz-note">// All deadlines are 11:59 PM Anywhere on Earth (AoE, UTC-12)</p>
+</section>
+
+<section class="block">
+  <h2>How to Submit</h2>
+  <p>FinNLP 2026 accepts submissions through <strong>two channels</strong>, both managed via <a href="https://openreview.net/group?id=EMNLP/2026/Workshop/FinNLP" target="_blank" rel="noopener">OpenReview</a>.</p>
+
+  <h3 class="sub">Direct submission</h3>
+  <p>Submit a new, anonymized paper to be reviewed by the FinNLP program committee. Three reviewers will be assigned per paper.</p>
+  <ul class="policy-list">
+    <li>Open for submission from <strong>July 1, 2026</strong>.</li>
+    <li>Submission deadline: <strong>August 11, 2026 (AoE)</strong>.</li>
+  </ul>
+
+  <h3 class="sub">ARR commitment</h3>
+  <p>Papers that have already been reviewed via <a href="https://aclrollingreview.org/" target="_blank" rel="noopener">ACL Rolling Review</a> may be committed to FinNLP 2026 with their existing reviews. No additional reviewing is required; the program committee will make accept/reject decisions based on the ARR reviews and meta-review.</p>
+  <ul class="policy-list">
+    <li>ARR commitment deadline: <strong>August 27, 2026 (AoE)</strong>.</li>
+    <li>Authors must have a finalized ARR meta-review at the time of commitment.</li>
+  </ul>
+
+  <div class="callout">
+    <div class="lbl">// Author notification</div>
+    <p>All accepted papers — direct and ARR — will be notified on <strong>September 8, 2026</strong>. Camera-ready due <strong>September 22, 2026 (AoE)</strong>.</p>
+  </div>
 </section>
 
 <section class="block">
@@ -245,6 +301,36 @@
   <ul class="policy-list">
     <li><strong>Long Paper:</strong> may consist of up to 8 pages of content, plus unlimited pages for references and appendix.</li>
     <li><strong>Short Paper and Demo Paper:</strong> may consist of up to 4 pages of content, plus unlimited references and appendix.</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h2>Submission Policies</h2>
+
+  <h3 class="sub">Anonymization</h3>
+  <p>All direct submissions must be anonymized following the standard ACL guidelines:</p>
+  <ul class="policy-list">
+    <li>Do not include author names, affiliations, or acknowledgements in the submission PDF.</li>
+    <li>Refer to your own prior work in the third person (e.g., "Smith et al. (2024) showed..." rather than "in our previous work...").</li>
+    <li>Do not include institutional logos, identifiable URLs, or GitHub handles tied to the authors.</li>
+    <li>Released code and data should be linked through <strong>anonymous repositories</strong> (e.g., <a href="https://anonymous.4open.science/" target="_blank" rel="noopener">anonymous.4open.science</a>).</li>
+    <li>Strip identifying PDF metadata before submission.</li>
+  </ul>
+  <p>ARR-committed papers retain the anonymity status they had during ARR review.</p>
+
+  <h3 class="sub">Dual / multiple submission</h3>
+  <ul class="policy-list">
+    <li>Papers must not be under review at another archival venue at the time of submission. If accepted, the same content cannot be submitted elsewhere.</li>
+    <li>arXiv pre-prints are permitted, provided the submission remains anonymous in content.</li>
+    <li>Papers committed via ARR must declare any other venues they are concurrently committed to.</li>
+    <li>Workshop proceedings are <strong>archival</strong> (ACL Anthology). Authors who prefer non-archival presentation should indicate so at submission.</li>
+  </ul>
+
+  <h3 class="sub">Supplementary material</h3>
+  <ul class="policy-list">
+    <li>Supplementary material (appendices, datasets, code) may be included in the appendix section (no page limit) or linked through anonymous repositories.</li>
+    <li>Reviewers are not required to consult supplementary material; the core contribution must be evaluable from the main paper.</li>
+    <li>For dataset and benchmark papers, we strongly encourage authors to include a <strong>data statement</strong> describing the data source, licensing, and ethical considerations.</li>
   </ul>
 </section>
 
@@ -285,7 +371,8 @@
   <div>
     <a href="index.html">Home</a> ·
     <a href="call-for-challenges.html">Challenges</a> ·
-    <a href="https://aclanthology.org/venues/finnlp/" target="_blank" rel="noopener">Anthology</a>
+    <a href="https://aclanthology.org/venues/finnlp/" target="_blank" rel="noopener">Anthology</a> ·
+    <a href="https://www.aclweb.org/portal/content/acl-code-ethics" target="_blank" rel="noopener">Code of Conduct</a>
   </div>
 </footer>
 
